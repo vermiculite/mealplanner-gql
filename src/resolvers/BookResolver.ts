@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql"
+import { Resolver, Query, Mutation, Arg, Authorized } from "type-graphql"
 import { Book } from "../models/Book"
 import { CreateBookInput } from "../inputs/CreatBookInput"
 import { UpdateBookInput } from "../inputs/UpdateBookInput"
@@ -10,6 +10,7 @@ export class BookResolver {
     return Book.findOne({ where: { id } })
   }
 
+  @Authorized("admin")
   @Query(() => [Book])
   books() {
     return Book.find()
